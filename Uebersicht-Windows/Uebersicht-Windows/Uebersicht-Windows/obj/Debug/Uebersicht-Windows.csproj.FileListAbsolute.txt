@@ -1,0 +1,6 @@
+C:\Users\anuragbakshi\Desktop\uebersicht\Uebersicht-Windows\Uebersicht-Windows\Uebersicht-Windows\bin\Debug\Uebersicht-Windows.exe.config
+C:\Users\anuragbakshi\Desktop\uebersicht\Uebersicht-Windows\Uebersicht-Windows\Uebersicht-Windows\bin\Debug\Uebersicht-Windows.exe
+C:\Users\anuragbakshi\Desktop\uebersicht\Uebersicht-Windows\Uebersicht-Windows\Uebersicht-Windows\bin\Debug\Uebersicht-Windows.pdb
+C:\Users\anuragbakshi\Desktop\uebersicht\Uebersicht-Windows\Uebersicht-Windows\Uebersicht-Windows\obj\Debug\Uebersicht-Windows.csprojResolveAssemblyReference.cache
+C:\Users\anuragbakshi\Desktop\uebersicht\Uebersicht-Windows\Uebersicht-Windows\Uebersicht-Windows\obj\Debug\Uebersicht-Windows.exe
+C:\Users\anuragbakshi\Desktop\uebersicht\Uebersicht-Windows\Uebersicht-Windows\Uebersicht-Windows\obj\Debug\Uebersicht-Windows.pdb
