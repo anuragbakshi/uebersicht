@@ -5,8 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using Microsoft.Win32;
 
 using Win32Wrapper;
 
@@ -14,41 +17,50 @@ using CefSharp.WinForms;
 
 namespace Uebersicht_Windows {
 	public class UBWindow : Form {
-		private const String WIDGET_SERVER_URL = "http://192.168.1.2:41416";
-
+		private static readonly string WIDGET_SERVER_URL = "http://192.168.1.2:41416";
+		private static readonly string WALLPAPER_IMAGE_B64;
+		
 		private IntPtr workerw = IntPtr.Zero;
 
-		//private WebBrowser webBrowser;
 		private ChromiumWebBrowser widgetView;
 
 		private bool isInFront = false;
 
+		static UBWindow() {
+			var path = Registry.CurrentUser.OpenSubKey("Control Panel\\Desktop").GetValue("WallPaper").ToString();
+			var format = path.Substring(path.LastIndexOf(".") + 1);
+
+			if(format == "jpg")
+				format = "jpeg";
+			else if(format == "tif")
+				format = "tiff";
+
+			WALLPAPER_IMAGE_B64 = "data:image/" + format + ";base64," + Convert.ToBase64String(File.ReadAllBytes(path));
+		}
+
 		public UBWindow() {
 			InitializeBackgroundLayer();
 			InitializeComponents();
+			
 			SendToDesktop();
-
-			//Console.WriteLine(webBrowser.Version);
-			LoadUrl(WIDGET_SERVER_URL);
+			FillScreen(Screen.PrimaryScreen);
 		}
 
 		public void LoadUrl(string url) {
-			//webBrowser.Navigate(new Uri(url));
 			widgetView.Load(url);
 		}
 
 		public void Reload() {
-			//webBrowser.Refresh();
 			widgetView.Reload(false);
 		}
 
 		public void FillScreen(Screen s) {
-			// ...
+			widgetView.Bounds = s.Bounds;
 		}
 
 		public void SendToDesktop() {
 			isInFront = false;
-			W32.SetParent(Handle, workerw);
+			W32.SetParent(this.Handle, workerw);
 		}
 
 		public void ComeToFront() {
@@ -64,13 +76,10 @@ namespace Uebersicht_Windows {
 			this.FormBorderStyle = FormBorderStyle.None;
 			this.SetBounds(0, 0, SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
 
-			//webBrowser = new WebBrowser();
-			//webBrowser.SetBounds(0, 0, SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
-			//this.Controls.Add(webBrowser);
-
 			widgetView = new ChromiumWebBrowser(WIDGET_SERVER_URL);
-			widgetView.SetBounds(0, 0, SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
 			this.Controls.Add(widgetView);
+
+			widgetView.IsLoadingChanged += widgetView_IsLoadingChanged;
 		}
 
 		private void InitializeBackgroundLayer() {
@@ -88,6 +97,13 @@ namespace Uebersicht_Windows {
 
 				return true;
 			}), IntPtr.Zero);
+		}
+
+		private void widgetView_IsLoadingChanged(object sender, CefSharp.IsLoadingChangedEventArgs e) {
+			if(!widgetView.IsLoading) {
+				widgetView.ExecuteScriptAsync("document.body.style['background'] = 'url(" + WALLPAPER_IMAGE_B64 + ") no-repeat center center fixed';");
+				widgetView.ExecuteScriptAsync("document.body.style['background-size'] = 'cover';");
+			}
 		}
 	}
 }
