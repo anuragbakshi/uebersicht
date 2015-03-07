@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using CefSharp;
+
 namespace Uebersicht_Windows {
 	class UBApplicationContext : ApplicationContext {
 		private NotifyIcon trayIcon;
@@ -23,6 +25,8 @@ namespace Uebersicht_Windows {
 		private UBWindow widgetWindow;
 
 		public UBApplicationContext() {
+			Cef.Initialize(new CefSettings());
+
 			Application.ApplicationExit += new EventHandler(this.OnApplicationExit);
 			InitializeTrayIcon();
 			InitializeWidgetWindow();

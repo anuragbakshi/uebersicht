@@ -1,0 +1,7 @@
+[0306/180957:ERROR:gpu_info_collector_win.cc(103)] Can't retrieve a valid WinSAT assessment.
+[0306/181005:ERROR:renderer_main.cc(227)] Running without renderer sandbox
+[0306/181203:ERROR:gpu_info_collector_win.cc(103)] Can't retrieve a valid WinSAT assessment.
+[0306/181204:ERROR:browser_host_impl.cc(1514)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 192.168.1.2:41416
+[0306/181204:ERROR:browser_host_impl.cc(1514)] Invalid URL passed to CefBrowserHostImpl::LoadURL: 192.168.1.2:41416
+[0306/181225:ERROR:gpu_info_collector_win.cc(103)] Can't retrieve a valid WinSAT assessment.
+[0306/181227:ERROR:renderer_main.cc(227)] Running without renderer sandbox

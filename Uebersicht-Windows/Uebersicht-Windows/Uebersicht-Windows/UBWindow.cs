@@ -18,8 +18,8 @@ namespace Uebersicht_Windows {
 
 		private IntPtr workerw = IntPtr.Zero;
 
-		private WebBrowser webBrowser;
-		//private ChromiumWebBrowser widgetView;
+		//private WebBrowser webBrowser;
+		private ChromiumWebBrowser widgetView;
 
 		private bool isInFront = false;
 
@@ -33,13 +33,13 @@ namespace Uebersicht_Windows {
 		}
 
 		public void LoadUrl(string url) {
-			webBrowser.Navigate(new Uri(url));
-			//widgetView.Load(url);
+			//webBrowser.Navigate(new Uri(url));
+			widgetView.Load(url);
 		}
 
 		public void Reload() {
-			webBrowser.Refresh();
-			//widgetView.Reload(false);
+			//webBrowser.Refresh();
+			widgetView.Reload(false);
 		}
 
 		public void FillScreen(Screen s) {
@@ -64,13 +64,13 @@ namespace Uebersicht_Windows {
 			this.FormBorderStyle = FormBorderStyle.None;
 			this.SetBounds(0, 0, SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
 
-			webBrowser = new WebBrowser();
-			webBrowser.SetBounds(0, 0, SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
-			this.Controls.Add(webBrowser);
+			//webBrowser = new WebBrowser();
+			//webBrowser.SetBounds(0, 0, SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
+			//this.Controls.Add(webBrowser);
 
-			//widgetView = new ChromiumWebBrowser(WIDGET_SERVER_URL);
-			//widgetView.SetBounds(0, 0, SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
-			//this.Controls.Add(widgetView);
+			widgetView = new ChromiumWebBrowser(WIDGET_SERVER_URL);
+			widgetView.SetBounds(0, 0, SystemInformation.VirtualScreen.Width, SystemInformation.VirtualScreen.Height);
+			this.Controls.Add(widgetView);
 		}
 
 		private void InitializeBackgroundLayer() {
